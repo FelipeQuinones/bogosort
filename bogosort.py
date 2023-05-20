@@ -11,22 +11,6 @@ def open_sequence(seq_path):
             sequence = line.split(",")
     return sequence
 
-def sort(sequence):
-    tries = 0
-    is_sorted = all(int(a) <= int(b) for a, b in zip(sequence, sequence[1:]))
-    while not is_sorted:
-        tries += 1
-        system("clear")
-        random.shuffle(sequence)
-        is_sorted = all(int(a) <= int(b) for a, b in zip(sequence, sequence[1:]))
-        terminal_gui(sequence)
-        print(f"Try: {tries}")
-    return tries
-
-def terminal_gui(sequence):
-    for number in sequence:
-        print("□" * int(number))
-   
 class Bogosort(QWidget):
     update_gui_signal = pyqtSignal()
 
@@ -58,7 +42,7 @@ class Bogosort(QWidget):
         self.setLayout(self.matrix)
 
         self.show()
-        
+
     def update_gui(self):
         system("clear")
         random.shuffle(self.labels)
@@ -76,9 +60,6 @@ if __name__ == "__main__":
 
     seq_path = "sequence.txt"
     sequence = open_sequence(seq_path)
-    """tries = sort(sequence)
-        
-    print(f"It took {tries} tries to find the solution")"""
 
     app = QApplication([])
     form = Bogosort(sequence)
